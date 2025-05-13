@@ -114,7 +114,7 @@ async fn main() -> anyhow::Result<()> {
     framed
         .send(Frame {
             r#type: FrameType::ServiceName,
-            payload: Bytes::from("token"),
+            payload: Bytes::from("edge-a"),
         })
         .await?;
 
@@ -123,6 +123,13 @@ async fn main() -> anyhow::Result<()> {
         .send(Frame {
             r#type: FrameType::Metric,
             payload: Bytes::from("cpu=82%;mem=55%"),
+        })
+        .await?;
+
+    framed
+        .send(Frame {
+            r#type: FrameType::Data,
+            payload: Bytes::from("this is data."),
         })
         .await?;
 

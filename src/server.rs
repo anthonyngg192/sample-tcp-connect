@@ -170,8 +170,11 @@ async fn main() -> anyhow::Result<()> {
 
             while let Some(Ok(frame)) = reader.next().await {
                 match frame.r#type {
-                    FrameType::Data => {
+                    FrameType::Metric => {
                         println!("[{}] METRIC: {:?}", service_id, frame.payload);
+                    }
+                    FrameType::Data => {
+                        println!("[{}] data: {:?}", service_id, frame.payload);
                     }
                     _ => {
                         println!(
